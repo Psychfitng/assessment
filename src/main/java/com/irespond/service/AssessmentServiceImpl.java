@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service @Slf4j @RequiredArgsConstructor
@@ -33,6 +34,7 @@ public class AssessmentServiceImpl implements AssessmentService{
         assessment.setCategory(assessmentDto.getCategory());
         assessment.setStandardName(assessmentDto.getStandardName());
         assessment.setDescription(assessmentDto.getDescription());
+        assessment.setCreatedBy(LocalDateTime.now());
 
         return assessmentRepository.insert(assessment);
     }
