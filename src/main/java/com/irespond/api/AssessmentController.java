@@ -18,7 +18,7 @@ import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 
-@RestController @Slf4j @AllArgsConstructor
+@RestController @Slf4j @AllArgsConstructor @CrossOrigin
 @RequestMapping("api")
 public class AssessmentController {
     private final AssessmentServiceImpl assessmentService;
