@@ -67,12 +67,15 @@ public class AssessmentServiceImpl implements AssessmentService{
 
         Assessment assessment = assessmentRepository.findById(sectionDto.getAssessmentId()).orElse(null);
         assert assessment != null;
-        assessment.getSections().add(section);
 
         section.setAssessmentId(assessment);
 
+        subsectionRepo.insert(section);
 
-        return subsectionRepo.insert(section);
+        assessment.getSections().add(section);
+
+
+        return section;
     }
 
     @Override
