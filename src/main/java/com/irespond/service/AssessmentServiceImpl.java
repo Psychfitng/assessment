@@ -69,6 +69,8 @@ public class AssessmentServiceImpl implements AssessmentService{
         assert assessment != null;
         assessment.getSections().add(section);
 
+        section.setAssessmentId(assessment);
+
 
         return subsectionRepo.insert(section);
     }
