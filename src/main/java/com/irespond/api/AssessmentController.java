@@ -1,9 +1,6 @@
 package com.irespond.api;
 
-import com.irespond.dtos.AssessmentDto;
-import com.irespond.dtos.QuestionDto;
-import com.irespond.dtos.RecommendationDto;
-import com.irespond.dtos.ResultDto;
+import com.irespond.dtos.*;
 import com.irespond.models.*;
 import com.irespond.service.AssessmentServiceImpl;
 import lombok.AllArgsConstructor;
@@ -49,9 +46,9 @@ public class AssessmentController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("assessment/category/{name}")
-    public ResponseEntity<Section> createSection(@PathVariable @NotBlank String name){
-        return ResponseEntity.status(HttpStatus.CREATED).body(assessmentService.createSubAssessment(name));
+    @PostMapping("assessment/section")
+    public ResponseEntity<Section> createSection(@RequestBody @Valid SectionDto sectionDto){
+        return ResponseEntity.status(HttpStatus.CREATED).body(assessmentService.createSubAssessment(sectionDto));
     }
     @PostMapping("/question")
     public ResponseEntity<AssessmentQuestion> createQuestion(@RequestBody @Valid QuestionDto questionDto){
