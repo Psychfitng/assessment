@@ -50,7 +50,7 @@ public class AssessmentController {
     }
 
     @PostMapping("assessment/category/{name}")
-    public ResponseEntity<SubSection> createSubAssessment(@PathVariable @NotBlank String name){
+    public ResponseEntity<Section> createSubAssessment(@PathVariable @NotBlank String name){
         return ResponseEntity.status(HttpStatus.CREATED).body(assessmentService.createSubAssessment(name));
     }
     @PostMapping("/question")

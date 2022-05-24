@@ -8,7 +8,7 @@ import java.util.List;
 
 @Document
 @Data
-public class SubSection {
+public class Section {
 
     @Id
     private String id;
@@ -19,7 +19,7 @@ public class SubSection {
 
     private List<AssessmentResult> result;
 
-    public SubSection(String name) {
+    public Section(String name) {
         this.name = name;
     }
 }

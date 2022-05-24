@@ -63,9 +63,9 @@ public class AssessmentServiceImpl implements AssessmentService{
     }
 
     @Override
-    public SubSection createSubAssessment(String name) {
+    public Section createSubAssessment(String name) {
 
-        return subsectionRepo.insert(new SubSection(name));
+        return subsectionRepo.insert(new Section(name));
     }
 
     @Override
@@ -74,6 +74,7 @@ public class AssessmentServiceImpl implements AssessmentService{
 
         question.setQuestionText(questionDto.getQuestionText());
         question.setOptions(questionDto.getOptions());
+        question.setCategory(subsectionRepo.findById(questionDto.getSectionId()).get());
         return questionRepo.insert(question);
     }
 

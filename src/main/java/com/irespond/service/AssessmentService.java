@@ -23,7 +23,7 @@ public interface AssessmentService {
 
     void deleteAssessment(String id);
 
-    SubSection createSubAssessment(String name);
+    Section createSubAssessment(String name);
 
 
     AssessmentQuestion createQuestion(QuestionDto questionDto);
