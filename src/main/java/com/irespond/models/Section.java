@@ -21,8 +21,8 @@ public class Section {
 
     private Assessment assessmentId;
 
-    public Section(String name, Assessment assessmentId) {
-        this.name = name;
-        this.assessmentId = assessmentId;
-    }
+//    public Section(String name, Assessment assessmentId) {
+//        this.name = name;
+//        this.assessmentId = assessmentId;
+//    }
 }

@@ -61,8 +61,16 @@ public class AssessmentServiceImpl implements AssessmentService{
 
     @Override
     public Section createSubAssessment(SectionDto sectionDto) {
+        Section section = new Section();
 
-        return subsectionRepo.insert(new Section(sectionDto.getName(), assessmentRepository.findById(sectionDto.getAssessmentId()).get()));
+        section.setName(sectionDto.getName());
+
+        Assessment assessment = assessmentRepository.findById(sectionDto.getAssessmentId()).orElse(null);
+        assert assessment != null;
+        assessment.getSections().add(section);
+
+
+        return subsectionRepo.insert(section);
     }
 
     @Override
