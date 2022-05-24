@@ -1,9 +1,6 @@
 package com.irespond.service;
 
-import com.irespond.dtos.AssessmentDto;
-import com.irespond.dtos.QuestionDto;
-import com.irespond.dtos.RecommendationDto;
-import com.irespond.dtos.ResultDto;
+import com.irespond.dtos.*;
 import com.irespond.models.*;
 
 import java.util.List;
@@ -23,7 +20,7 @@ public interface AssessmentService {
 
     void deleteAssessment(String id);
 
-    Section createSubAssessment(String name);
+    Section createSubAssessment(SectionDto sectionDto);
 
 
     AssessmentQuestion createQuestion(QuestionDto questionDto);

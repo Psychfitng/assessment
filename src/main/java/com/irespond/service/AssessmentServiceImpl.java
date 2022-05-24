@@ -1,9 +1,6 @@
 package com.irespond.service;
 
-import com.irespond.dtos.AssessmentDto;
-import com.irespond.dtos.QuestionDto;
-import com.irespond.dtos.RecommendationDto;
-import com.irespond.dtos.ResultDto;
+import com.irespond.dtos.*;
 import com.irespond.exceptions.AssessmentException;
 import com.irespond.models.*;
 import com.irespond.repository.*;
@@ -63,9 +60,9 @@ public class AssessmentServiceImpl implements AssessmentService{
     }
 
     @Override
-    public Section createSubAssessment(String name) {
+    public Section createSubAssessment(SectionDto sectionDto) {
 
-        return subsectionRepo.insert(new Section(name));
+        return subsectionRepo.insert(new Section(sectionDto.getName(), assessmentRepository.findById(sectionDto.getAssessmentId()).get()));
     }
 
     @Override
@@ -74,7 +71,7 @@ public class AssessmentServiceImpl implements AssessmentService{
 
         question.setQuestionText(questionDto.getQuestionText());
         question.setOptions(questionDto.getOptions());
-        question.setCategory(subsectionRepo.findById(questionDto.getSectionId()).get());
+        question.setCategory(subsectionRepo.findById(questionDto.getSectionId()).orElse(null));
         return questionRepo.insert(question);
     }
 

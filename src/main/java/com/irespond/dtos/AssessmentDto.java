@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 
 @Getter
@@ -22,5 +23,7 @@ public class AssessmentDto {
 
     @NotNull
     private String description;
+
+    private List<String> sections;
 
 }

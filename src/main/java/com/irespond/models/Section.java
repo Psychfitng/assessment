@@ -19,7 +19,10 @@ public class Section {
 
     private List<AssessmentResult> result;
 
-    public Section(String name) {
+    private Assessment assessmentId;
+
+    public Section(String name, Assessment assessmentId) {
         this.name = name;
+        this.assessmentId = assessmentId;
     }
 }

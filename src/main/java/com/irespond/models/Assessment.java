@@ -30,8 +30,6 @@ public class Assessment {
     @CreatedBy
     private LocalDateTime createdBy;
 
-    private List<Section> subSection = new ArrayList<>();
-
-
+    private List<Section> sections = new ArrayList<>();
 
 }
