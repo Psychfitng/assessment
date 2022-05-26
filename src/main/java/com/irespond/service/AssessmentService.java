@@ -35,6 +35,10 @@ public interface AssessmentService {
 
     void deleteAllAssessment();
 
+    List<Section> getAllSection();
+
+    void deleteAllSections();
+
     void deleteAllQuestions();
 
     AssessmentResult createResult(ResultDto resultDto);

@@ -4,6 +4,7 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Document
@@ -15,14 +16,7 @@ public class Section {
 
     private String name;
 
-    private List<AssessmentQuestion> questions;
+    private List<AssessmentQuestion> questions = new ArrayList<>();
 
-    private List<AssessmentResult> result;
-
-    private Assessment assessmentId;
-
-//    public Section(String name, Assessment assessmentId) {
-//        this.name = name;
-//        this.assessmentId = assessmentId;
-//    }
+    private List<AssessmentResult> result = new ArrayList<>();
 }

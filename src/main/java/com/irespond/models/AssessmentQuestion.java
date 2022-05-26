@@ -17,5 +17,5 @@ public class AssessmentQuestion {
 
     private List<String> options;
 
-    private Section category;
+//    private Section category;
 }

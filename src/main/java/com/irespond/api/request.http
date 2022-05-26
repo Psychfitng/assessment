@@ -1,3 +1,0 @@
-POST localhost:8080/assessment
-Content-Type: application/json
-Access-Control-Request-Method:

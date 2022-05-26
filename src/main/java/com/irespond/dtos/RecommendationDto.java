@@ -13,4 +13,6 @@ public class RecommendationDto {
     private String message;
 
     private String imageLink;
+
+    private String resultId;
 }

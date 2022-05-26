@@ -1,5 +1,6 @@
 package com.irespond.dtos;
 
+import com.irespond.models.Section;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,7 +24,5 @@ public class AssessmentDto {
 
     @NotNull
     private String description;
-
-    private List<String> sections;
 
 }

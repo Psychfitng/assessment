@@ -18,7 +18,7 @@ public class AssessmentServiceImpl implements AssessmentService{
     private final ResultRepository resultRepository;
     private final AssessmentRepository assessmentRepository;
     private final RecommendationRepo recommendationRepo;
-    private final SubsectionRepo subsectionRepo;
+    private final SectionRepository subsectionRepo;
     private final QuestionRepository questionRepo;
     private final ModelMapper mapper;
 
@@ -32,7 +32,6 @@ public class AssessmentServiceImpl implements AssessmentService{
         assessment.setStandardName(assessmentDto.getStandardName());
         assessment.setDescription(assessmentDto.getDescription());
         assessment.setCreatedBy(LocalDateTime.now());
-
         return assessmentRepository.insert(assessment);
     }
 
@@ -68,12 +67,10 @@ public class AssessmentServiceImpl implements AssessmentService{
         Assessment assessment = assessmentRepository.findById(sectionDto.getAssessmentId()).orElse(null);
         assert assessment != null;
 
-        section.setAssessmentId(assessment);
-
-        subsectionRepo.insert(section);
+        subsectionRepo.save(section);
 
         assessment.getSections().add(section);
-
+        assessmentRepository.save(assessment);
 
         return section;
     }
@@ -84,8 +81,15 @@ public class AssessmentServiceImpl implements AssessmentService{
 
         question.setQuestionText(questionDto.getQuestionText());
         question.setOptions(questionDto.getOptions());
-        question.setCategory(subsectionRepo.findById(questionDto.getSectionId()).orElse(null));
-        return questionRepo.insert(question);
+        Section section = subsectionRepo.findById(questionDto.getSectionId()).orElse(null);
+
+        questionRepo.insert(question);
+        assert section != null;
+
+        section.getQuestions().add(question);
+        subsectionRepo.save(section);
+
+        return question;
     }
 
     @Override
@@ -115,6 +119,19 @@ public class AssessmentServiceImpl implements AssessmentService{
         assessmentRepository.deleteAll();
     }
 
+
+    @Override
+    public List<Section> getAllSection() {
+        return subsectionRepo.findAll();
+    }
+
+    @Override
+    public void deleteAllSections() {
+        subsectionRepo.deleteAll();
+    }
+
+
+
     @Override
     public void deleteAllQuestions() {
         questionRepo.deleteAll();
@@ -128,7 +145,14 @@ public class AssessmentServiceImpl implements AssessmentService{
         result.setImageUrl(resultDto.getImageUrl());
         result.setMaxRange(resultDto.getMaxRange());
 
-        return resultRepository.insert(result);
+        resultRepository.insert(result);
+        Section section = subsectionRepo.findById(resultDto.getSectionId()).get();
+
+        section.getResult().add(result);
+
+        subsectionRepo.save(section);
+
+        return result;
     }
 
     @Override
@@ -147,7 +171,15 @@ public class AssessmentServiceImpl implements AssessmentService{
         recommendation.setImageLink(recommendationDto.getImageLink());
         recommendation.setMessage(recommendationDto.getMessage());
 
-        return recommendationRepo.insert(recommendation);
+        recommendationRepo.insert(recommendation);
+
+        AssessmentResult result = resultRepository.findById(recommendationDto.getResultId()).get();
+
+        result.getRecommendations().add(recommendation);
+
+        resultRepository.save(result);
+
+        return recommendation;
     }
 
     @Override

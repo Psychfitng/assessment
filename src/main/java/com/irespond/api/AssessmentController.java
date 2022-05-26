@@ -77,6 +77,16 @@ public class AssessmentController {
         assessmentService.deleteAllAssessment();
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/sections")
+    public ResponseEntity<List<Section>> getAllSections(){
+        return ResponseEntity.status(HttpStatus.OK).body(assessmentService.getAllSection());
+    }
+    @DeleteMapping("/sections")
+    public ResponseEntity<?> deleteAllSections(){
+        assessmentService.deleteAllSections();
+        return ResponseEntity.noContent().build();
+    }
     @DeleteMapping("/questions/delete")
     public ResponseEntity<?> deleteAllQuestions(){
         assessmentService.deleteAllQuestions();
