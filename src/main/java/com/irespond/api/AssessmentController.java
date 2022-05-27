@@ -54,6 +54,11 @@ public class AssessmentController {
     public ResponseEntity<AssessmentQuestion> createQuestion(@RequestBody @Valid QuestionDto questionDto){
         return ResponseEntity.status(HttpStatus.CREATED).body(assessmentService.createQuestion(questionDto));
     }
+
+    @PostMapping("/option")
+    public ResponseEntity<Option> createQuestion(@RequestBody @Valid Option option, String questionId){
+        return ResponseEntity.status(HttpStatus.CREATED).body(assessmentService.createOption(option, questionId));
+    }
     @PatchMapping("/question/{id}")
     public ResponseEntity<AssessmentQuestion> editQuestion(@PathVariable @NotBlank String id, @RequestBody @Valid QuestionDto questionDto){
         return ResponseEntity.status(HttpStatus.OK).body(assessmentService.editQuestion(id, questionDto));
@@ -71,6 +76,10 @@ public class AssessmentController {
     @GetMapping("/questions")
     public ResponseEntity<List<AssessmentQuestion>> getAllQuestion(){
         return ResponseEntity.status(HttpStatus.OK).body(assessmentService.getAllQuestion());
+    }
+    @GetMapping("/options")
+    public ResponseEntity<List<Option>> getAllOptions(){
+        return ResponseEntity.status(HttpStatus.OK).body(assessmentService.getAllOptions());
     }
     @DeleteMapping("/assessments/delete")
     public ResponseEntity<?> deleteAllAssessment(){

@@ -25,6 +25,8 @@ public interface AssessmentService {
 
     AssessmentQuestion createQuestion(QuestionDto questionDto);
 
+    Option createOption(Option option, String questionId);
+
     AssessmentQuestion editQuestion(String id, QuestionDto questionDto);
 
     List<AssessmentQuestion> getAllQuestionByAssessmentType(String assessmentName);
@@ -55,4 +57,6 @@ public interface AssessmentService {
     List<Recommendation> getAllRecommendation();
 
     void deleteRecommendation(String recommendationId);
+
+    List<Option> getAllOptions();
 }

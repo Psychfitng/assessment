@@ -21,6 +21,7 @@ public class AssessmentServiceImpl implements AssessmentService{
     private final SectionRepository subsectionRepo;
     private final QuestionRepository questionRepo;
     private final ModelMapper mapper;
+    private final OptionRepository optionRepository;
 
     @Override
     public Assessment createAssessment(AssessmentDto assessmentDto) {
@@ -80,7 +81,6 @@ public class AssessmentServiceImpl implements AssessmentService{
         AssessmentQuestion question = new AssessmentQuestion();
 
         question.setQuestionText(questionDto.getQuestionText());
-        question.setOptions(questionDto.getOptions());
         Section section = subsectionRepo.findById(questionDto.getSectionId()).orElse(null);
 
         questionRepo.insert(question);
@@ -90,6 +90,19 @@ public class AssessmentServiceImpl implements AssessmentService{
         subsectionRepo.save(section);
 
         return question;
+    }
+
+    @Override
+    public Option createOption(Option option, String questionId) {
+        AssessmentQuestion question = questionRepo.findById(questionId).orElse(null);
+
+        optionRepository.insert(option);
+        assert question != null;
+
+        question.getOptions().add(option);
+        questionRepo.save(question);
+
+        return option;
     }
 
     @Override
@@ -210,5 +223,10 @@ public class AssessmentServiceImpl implements AssessmentService{
     @Override
     public void deleteRecommendation(String recommendationId) {
         recommendationRepo.deleteById(recommendationId);
+    }
+
+    @Override
+    public List<Option> getAllOptions() {
+        return optionRepository.findAll();
     }
 }
