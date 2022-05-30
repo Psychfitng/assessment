@@ -12,7 +12,7 @@ public class Option {
     @Id
     private String id;
 
-    private OptionType optionType;
+    private String optionType;
 
     private List<String> labels;
 
