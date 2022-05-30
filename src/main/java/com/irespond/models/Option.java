@@ -4,6 +4,7 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Document
@@ -14,7 +15,5 @@ public class Option {
 
     private String optionType;
 
-    private List<String> labels;
-
-    private Integer scaleValue;
+    private List<String> labels = new ArrayList<>();
 }
