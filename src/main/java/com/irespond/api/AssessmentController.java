@@ -56,7 +56,7 @@ public class AssessmentController {
     }
 
     @PostMapping("/option")
-    public ResponseEntity<Option> createQuestion(@RequestBody @Valid Option option, String questionId){
+    public ResponseEntity<Option> createQuestion(@RequestBody @Valid OptionDto option, String questionId){
         return ResponseEntity.status(HttpStatus.CREATED).body(assessmentService.createOption(option, questionId));
     }
     @PatchMapping("/question/{id}")
