@@ -101,6 +101,11 @@ public class AssessmentController {
         assessmentService.deleteAllQuestions();
         return ResponseEntity.noContent().build();
     }
+    @DeleteMapping("/options/delete")
+    public ResponseEntity<?> deleteAllOptions(){
+        assessmentService.deleteAllOptions();
+        return ResponseEntity.noContent().build();
+    }
     @PostMapping("/result")
     public ResponseEntity<AssessmentResult> createResult(@RequestBody @Valid ResultDto resultDto){
         return ResponseEntity.status(HttpStatus.CREATED).body(assessmentService.createResult(resultDto));

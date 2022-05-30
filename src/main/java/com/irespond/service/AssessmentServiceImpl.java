@@ -94,13 +94,13 @@ public class AssessmentServiceImpl implements AssessmentService{
 
     @Override
     public Option createOption(OptionDto optionDto) {
-        AssessmentQuestion question = questionRepo.findById(optionDto.getQuestionId()).orElse(null);
-
         Option option = new Option();
         option.setOptionType(optionDto.getOptionType());
         option.setLabels(optionDto.getLabels());
 
-        optionRepository.insert(option);
+        optionRepository.save(option);
+
+        AssessmentQuestion question = questionRepo.findById(optionDto.getQuestionId()).orElse(null);
         assert question != null;
 
         question.getOptions().add(option);
@@ -145,6 +145,11 @@ public class AssessmentServiceImpl implements AssessmentService{
     @Override
     public void deleteAllSections() {
         subsectionRepo.deleteAll();
+    }
+
+    @Override
+    public void deleteAllOptions() {
+        optionRepository.deleteAll();
     }
 
 
