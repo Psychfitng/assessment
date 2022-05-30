@@ -25,7 +25,7 @@ public interface AssessmentService {
 
     AssessmentQuestion createQuestion(QuestionDto questionDto);
 
-    Option createOption(OptionDto option, String questionId);
+    Option createOption(OptionDto option);
 
     AssessmentQuestion editQuestion(String id, QuestionDto questionDto);
 

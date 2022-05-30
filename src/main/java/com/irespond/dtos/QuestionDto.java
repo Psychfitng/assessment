@@ -13,8 +13,5 @@ public class QuestionDto {
     @NotBlank
     private String questionText;
 
-
-    private List<String> options;
-
     private String sectionId;
 }

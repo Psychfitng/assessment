@@ -93,13 +93,12 @@ public class AssessmentServiceImpl implements AssessmentService{
     }
 
     @Override
-    public Option createOption(OptionDto optionDto, String questionId) {
-        AssessmentQuestion question = questionRepo.findById(questionId).orElse(null);
+    public Option createOption(OptionDto optionDto) {
+        AssessmentQuestion question = questionRepo.findById(optionDto.getQuestionId()).orElse(null);
 
         Option option = new Option();
         option.setOptionType(optionDto.getOptionType());
         option.setLabels(optionDto.getLabels());
-        option.setScaleValue(optionDto.getScaleValue());
 
         optionRepository.insert(option);
         assert question != null;
