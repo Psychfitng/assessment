@@ -99,7 +99,7 @@ public class AssessmentController {
     public ResponseEntity<List<Section>> getAllSections(){
         return ResponseEntity.status(HttpStatus.OK).body(assessmentService.getAllSection());
     }
-    @DeleteMapping("/section/{id}")
+    @GetMapping("/section/{id}")
     public ResponseEntity<Section> getSectionById(@PathVariable @NotBlank String id){
 
         return ResponseEntity.ok(assessmentService.getSectionById(id));
