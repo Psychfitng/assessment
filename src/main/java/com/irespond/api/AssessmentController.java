@@ -68,6 +68,14 @@ public class AssessmentController {
     public ResponseEntity<List<AssessmentQuestion>> getAllQuestionByAssessmentType(@PathVariable @NotBlank String assessmentName){
         return ResponseEntity.status(HttpStatus.OK).body(assessmentService.getAllQuestionByAssessmentType(assessmentName));
     }
+
+
+    @GetMapping("/question/{id}")
+    public ResponseEntity<AssessmentQuestion> getQuestionById(@PathVariable @NotBlank String id){
+
+        return ResponseEntity.status(HttpStatus.OK).body(assessmentService.getQuestionById(id));
+    }
+
     @DeleteMapping("/question/delete/{id}")
     public ResponseEntity<?> deleteQuestion(@PathVariable @NotBlank String id){
         assessmentService.deleteQuestion(id);
@@ -91,7 +99,12 @@ public class AssessmentController {
     public ResponseEntity<List<Section>> getAllSections(){
         return ResponseEntity.status(HttpStatus.OK).body(assessmentService.getAllSection());
     }
-    @DeleteMapping("/sections")
+    @DeleteMapping("/section/{id}")
+    public ResponseEntity<Section> getSectionById(@PathVariable @NotBlank String id){
+
+        return ResponseEntity.ok(assessmentService.getSectionById(id));
+    }
+    @DeleteMapping("/sections/delete")
     public ResponseEntity<?> deleteAllSections(){
         assessmentService.deleteAllSections();
         return ResponseEntity.noContent().build();

@@ -38,7 +38,13 @@ public class AssessmentServiceImpl implements AssessmentService{
 
     @Override
     public Assessment getAssessment(String id) {
-        return assessmentRepository.findById(id).orElseThrow(() -> new AssessmentException("This Assessment does not exist"));
+
+
+        Assessment assessment = assessmentRepository.findById(id)
+                .orElseThrow(() -> new AssessmentException("This Assessment does not exist"));
+        log.info("ASSESSMENT -> {}", assessment);
+        log.info("ASSESSMENT CHAIN -> {}", assessment.getSections().get(0).getQuestions());
+        return assessment;
     }
 
     @Override
@@ -65,8 +71,8 @@ public class AssessmentServiceImpl implements AssessmentService{
 
         section.setName(sectionDto.getName());
 
-        Assessment assessment = assessmentRepository.findById(sectionDto.getAssessmentId()).orElse(null);
-        assert assessment != null;
+        Assessment assessment = assessmentRepository.findById(sectionDto.getAssessmentId())
+                .orElseThrow(() -> new AssessmentException("Assessment not found"));
 
         subsectionRepo.save(section);
 
@@ -81,10 +87,11 @@ public class AssessmentServiceImpl implements AssessmentService{
         AssessmentQuestion question = new AssessmentQuestion();
 
         question.setQuestionText(questionDto.getQuestionText());
-        Section section = subsectionRepo.findById(questionDto.getSectionId()).orElse(null);
+        Section section = subsectionRepo.findById(questionDto.getSectionId())
+                .orElseThrow(() -> new AssessmentException("Session not found"));
 
         questionRepo.insert(question);
-        assert section != null;
+        log.info("SAVED QUESTION -> {}", question);
 
         section.getQuestions().add(question);
         subsectionRepo.save(section);
@@ -94,17 +101,26 @@ public class AssessmentServiceImpl implements AssessmentService{
 
     @Override
     public Option createOption(OptionDto optionDto) {
+        log.info("OPTIONDTO -> {}",optionDto);
+
         Option option = new Option();
+
         option.setOptionType(optionDto.getOptionType());
         option.setLabels(optionDto.getLabels());
+        optionRepository.insert(option);
+        log.info("SAVED OPTION -> {}", option);
 
-        optionRepository.save(option);
+        AssessmentQuestion question = questionRepo.findById(optionDto.getQuestionId())
+                .orElseThrow(() -> new AssessmentException("Question not found"));
 
-        AssessmentQuestion question = questionRepo.findById(optionDto.getQuestionId()).orElse(null);
-        assert question != null;
+//        optionRepository.insert(option);
+
 
         question.getOptions().add(option);
+        log.info("QUESTION BEFORE SAVING -> {}", question);
         questionRepo.save(question);
+        log.info("QUESTION AFTER SAVING -> {}", question);
+
 
         return option;
     }
@@ -237,5 +253,17 @@ public class AssessmentServiceImpl implements AssessmentService{
     @Override
     public List<Option> getAllOptions() {
         return optionRepository.findAll();
+    }
+
+    @Override
+    public AssessmentQuestion getQuestionById(String id) {
+        return questionRepo.findById(id)
+                .orElseThrow(() -> new AssessmentException("Question not found"));
+    }
+
+    @Override
+    public Section getSectionById(String id) {
+        return subsectionRepo.findById(id)
+                .orElseThrow(() -> new AssessmentException("Section not found"));
     }
 }

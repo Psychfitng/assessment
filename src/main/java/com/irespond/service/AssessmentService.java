@@ -61,4 +61,8 @@ public interface AssessmentService {
     void deleteRecommendation(String recommendationId);
 
     List<Option> getAllOptions();
+
+    AssessmentQuestion getQuestionById(String id);
+
+    Section getSectionById(String id);
 }
