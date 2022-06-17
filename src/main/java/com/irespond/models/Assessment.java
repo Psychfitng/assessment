@@ -1,6 +1,7 @@
 package com.irespond.models;
 
 import lombok.Data;
+import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -21,9 +22,11 @@ public class Assessment {
     private String id;
 
     @Indexed(unique = true)
+    @UniqueElements
     private String title;
 
     @Indexed(unique = true)
+    @UniqueElements
     private String standardName;
 
     private String category;
