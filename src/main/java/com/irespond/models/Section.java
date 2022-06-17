@@ -2,7 +2,9 @@ package com.irespond.models;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +18,9 @@ public class Section {
 
     private String name;
 
+    @DBRef(lazy = false)
     private List<AssessmentQuestion> questions = new ArrayList<>();
 
-    private List<AssessmentResult> result = new ArrayList<>();
+    @DBRef
+    private List<AssessmentResult> results = new ArrayList<>();
 }

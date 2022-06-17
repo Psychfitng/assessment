@@ -27,6 +27,9 @@ public class AssessmentServiceImpl implements AssessmentService{
     public Assessment createAssessment(AssessmentDto assessmentDto) {
 
         Assessment assessment = new Assessment();
+        if (assessmentRepository.existsByTitleIgnoreCase(assessmentDto.getTitle())){
+            throw new AssessmentException("Assessment title already exist");
+        }
 
         assessment.setTitle(assessmentDto.getTitle());
         assessment.setCategory(assessmentDto.getCategory());
@@ -184,9 +187,10 @@ public class AssessmentServiceImpl implements AssessmentService{
         result.setMaxRange(resultDto.getMaxRange());
 
         resultRepository.insert(result);
-        Section section = subsectionRepo.findById(resultDto.getSectionId()).get();
+        Section section = subsectionRepo.findById(resultDto.getSectionId())
+                .orElseThrow(() -> new AssessmentException("Section not found"));
 
-        section.getResult().add(result);
+        section.getResults().add(result);
 
         subsectionRepo.save(section);
 
@@ -211,7 +215,8 @@ public class AssessmentServiceImpl implements AssessmentService{
 
         recommendationRepo.insert(recommendation);
 
-        AssessmentResult result = resultRepository.findById(recommendationDto.getResultId()).get();
+        AssessmentResult result = resultRepository.findById(recommendationDto.getResultId())
+                        .orElseThrow(() -> new AssessmentException("This result already exist"));
 
         result.getRecommendations().add(recommendation);
 

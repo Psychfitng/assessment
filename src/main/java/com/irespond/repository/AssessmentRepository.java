@@ -9,7 +9,9 @@ import java.util.Optional;
 public interface AssessmentRepository extends MongoRepository<Assessment, String> {
 
     @Query("{'title': ?0}")
-    Optional<Assessment> findByTitle(String title);
+    Optional<Assessment> findByTitleIgnoreCase(String title);
+
+    Boolean existsByTitleIgnoreCase(String title);
 
     Optional<Assessment> findById(String id);
 }
