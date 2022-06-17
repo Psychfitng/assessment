@@ -127,16 +127,16 @@ public class AssessmentController {
     public ResponseEntity<Recommendation> createRecommendation(@RequestBody @Valid RecommendationDto recommendationDto){
         return ResponseEntity.status(HttpStatus.CREATED).body(assessmentService.createRecommendation(recommendationDto));
     }
-    @PostMapping("/recommendation/add")
-    public ResponseEntity<?> addRecommendationToResult(String resultId, Recommendation... recommendations){
-        assessmentService.addRecommendationToResult(resultId, recommendations);
-        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
-    }
     @GetMapping("/recommendations")
     public ResponseEntity<List<Recommendation>> getAllRecommendation(){
         return ResponseEntity.status(HttpStatus.OK).body(assessmentService.getAllRecommendation());
     }
-    @DeleteMapping("/recomendation/delete/{recommendationId}")
+    @DeleteMapping("/recommendations/delete-all")
+    public ResponseEntity<?> deleteAllRecommendations(){
+        assessmentService.deleteRecommendations();
+        return ResponseEntity.status(HttpStatus.OK).body("Successfully Deleted");
+    }
+    @DeleteMapping("/recommendation/delete/{recommendationId}")
     public ResponseEntity<?> deleteRecommendation(@PathVariable @NotBlank String recommendationId){
         assessmentService.deleteRecommendation(recommendationId);
         return ResponseEntity.noContent().build();

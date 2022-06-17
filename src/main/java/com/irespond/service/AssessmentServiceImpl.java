@@ -104,26 +104,17 @@ public class AssessmentServiceImpl implements AssessmentService{
 
     @Override
     public Option createOption(OptionDto optionDto) {
-        log.info("OPTIONDTO -> {}",optionDto);
-
         Option option = new Option();
 
         option.setOptionType(optionDto.getOptionType());
         option.setLabels(optionDto.getLabels());
         optionRepository.insert(option);
-        log.info("SAVED OPTION -> {}", option);
 
         AssessmentQuestion question = questionRepo.findById(optionDto.getQuestionId())
                 .orElseThrow(() -> new AssessmentException("Question not found"));
 
-//        optionRepository.insert(option);
-
-
-        question.getOptions().add(option);
-        log.info("QUESTION BEFORE SAVING -> {}", question);
+        question.setOption(option);
         questionRepo.save(question);
-        log.info("QUESTION AFTER SAVING -> {}", question);
-
 
         return option;
     }
@@ -234,17 +225,7 @@ public class AssessmentServiceImpl implements AssessmentService{
         return recommendationRepo.save(recommendation);
     }
 
-    @Override
-    public void addRecommendationToResult(String resultId, Recommendation... recommendations) {
-            AssessmentResult result = resultRepository.findById(resultId).
-                    orElseThrow(() -> new AssessmentException("This result does not exist"));
 
-        for (Recommendation recommendation: recommendations
-             ) {
-            result.getRecommendations().add(recommendation);
-        }
-        resultRepository.save(result);
-    }
     @Override
     public List<Recommendation> getAllRecommendation() {
         return recommendationRepo.findAll();
@@ -270,5 +251,10 @@ public class AssessmentServiceImpl implements AssessmentService{
     public Section getSectionById(String id) {
         return subsectionRepo.findById(id)
                 .orElseThrow(() -> new AssessmentException("Section not found"));
+    }
+
+    @Override
+    public void deleteRecommendations() {
+        recommendationRepo.deleteAll();
     }
 }

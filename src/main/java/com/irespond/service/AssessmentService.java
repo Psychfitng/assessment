@@ -53,9 +53,6 @@ public interface AssessmentService {
 
     Recommendation editRecommendation(String recommendationId, RecommendationDto recommendationDto);
 
-    void addRecommendationToResult(String resultId, Recommendation... recommendations);
-
-
     List<Recommendation> getAllRecommendation();
 
     void deleteRecommendation(String recommendationId);
@@ -65,4 +62,6 @@ public interface AssessmentService {
     AssessmentQuestion getQuestionById(String id);
 
     Section getSectionById(String id);
+
+    void deleteRecommendations();
 }
