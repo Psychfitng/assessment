@@ -23,11 +23,9 @@ public class Assessment {
     private String id;
 
     @Indexed(unique = true)
-    @UniqueElements
     private String title;
 
     @Indexed(unique = true)
-    @UniqueElements
     private String standardName;
 
     private String category;
