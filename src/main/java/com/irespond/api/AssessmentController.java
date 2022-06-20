@@ -63,6 +63,20 @@ public class AssessmentController {
     public ResponseEntity<AssessmentQuestion> editQuestion(@PathVariable @NotBlank String id, @RequestBody @Valid QuestionDto questionDto){
         return ResponseEntity.status(HttpStatus.OK).body(assessmentService.editQuestion(id, questionDto));
     }
+    @PatchMapping("/result-update/{id}")
+    public ResponseEntity<AssessmentResult> updateResult(@PathVariable @NotBlank String id, @RequestBody @Valid ResultDto resultDto){
+        return ResponseEntity.status(HttpStatus.OK).body(assessmentService.updateResult(id, resultDto));
+    }
+
+    @PatchMapping("/section-update/{id}")
+    public ResponseEntity<Section> updateSection(@PathVariable @NotBlank String id, @RequestBody @Valid SectionDto sectionDto){
+        return ResponseEntity.status(HttpStatus.OK).body(assessmentService.updateSection(id, sectionDto));
+    }
+
+    @PatchMapping("/recommendation-update/{id}")
+    public ResponseEntity<Recommendation> updateRecommendation(@PathVariable @NotBlank String id, @RequestBody @Valid RecommendationDto recommendationDto){
+        return ResponseEntity.status(HttpStatus.OK).body(assessmentService.editRecommendation(id, recommendationDto));
+    }
 
     @GetMapping("/questions/{assessmentName}")
     public ResponseEntity<List<AssessmentQuestion>> getAllQuestionByAssessmentType(@PathVariable @NotBlank String assessmentName){

@@ -257,4 +257,11 @@ public class AssessmentServiceImpl implements AssessmentService{
     public void deleteRecommendations() {
         recommendationRepo.deleteAll();
     }
+
+    public Section updateSection(String id, SectionDto sectionDto) {
+        Section section = subsectionRepo.findById(id).
+                orElseThrow(() -> new AssessmentException("This section does not exist"));
+        mapper.map(sectionDto, section);
+        return subsectionRepo.save(section);
+    }
 }
