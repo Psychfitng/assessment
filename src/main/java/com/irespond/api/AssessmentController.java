@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 
@@ -69,17 +70,17 @@ public class AssessmentController {
     }
 
     @PatchMapping("/section-update/{id}")
-    public ResponseEntity<Section> updateSection(@PathVariable @NotBlank String id, @RequestBody @Valid SectionDto sectionDto){
+    public ResponseEntity<Section> updateSection(@PathVariable @NotNull String id, @RequestBody @Valid SectionDto sectionDto){
         return ResponseEntity.status(HttpStatus.OK).body(assessmentService.updateSection(id, sectionDto));
     }
 
     @PatchMapping("/recommendation-update/{id}")
-    public ResponseEntity<Recommendation> updateRecommendation(@PathVariable @NotBlank String id, @RequestBody @Valid RecommendationDto recommendationDto){
+    public ResponseEntity<Recommendation> updateRecommendation(@PathVariable @NotNull String id, @RequestBody @Valid RecommendationDto recommendationDto){
         return ResponseEntity.status(HttpStatus.OK).body(assessmentService.editRecommendation(id, recommendationDto));
     }
 
     @GetMapping("/questions/{assessmentName}")
-    public ResponseEntity<List<AssessmentQuestion>> getAllQuestionByAssessmentType(@PathVariable @NotBlank String assessmentName){
+    public ResponseEntity<List<AssessmentQuestion>> getAllQuestionByAssessmentType(@PathVariable @NotNull String assessmentName){
         return ResponseEntity.status(HttpStatus.OK).body(assessmentService.getAllQuestionByAssessmentType(assessmentName));
     }
 
