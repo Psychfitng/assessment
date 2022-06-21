@@ -221,6 +221,7 @@ public class AssessmentServiceImpl implements AssessmentService{
 
         Recommendation recommendation = recommendationRepo.findById(recommendationId).
                 orElseThrow(() -> new AssessmentException("This recommendation does not exist"));
+
         mapper.map(recommendationDto, recommendation);
         return recommendationRepo.save(recommendation);
     }

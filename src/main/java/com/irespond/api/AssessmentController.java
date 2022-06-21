@@ -60,21 +60,21 @@ public class AssessmentController {
     public ResponseEntity<Option> createOption(@RequestBody @Valid OptionDto option){
         return ResponseEntity.status(HttpStatus.CREATED).body(assessmentService.createOption(option));
     }
-    @PatchMapping("/question/{id}")
+    @PutMapping("/question/{id}")
     public ResponseEntity<AssessmentQuestion> editQuestion(@PathVariable @NotBlank String id, @RequestBody @Valid QuestionDto questionDto){
         return ResponseEntity.status(HttpStatus.OK).body(assessmentService.editQuestion(id, questionDto));
     }
-    @PatchMapping("/result-update/{id}")
+    @PutMapping("/result-update/{id}")
     public ResponseEntity<AssessmentResult> updateResult(@PathVariable @NotBlank String id, @RequestBody @Valid ResultDto resultDto){
         return ResponseEntity.status(HttpStatus.OK).body(assessmentService.updateResult(id, resultDto));
     }
 
-    @PatchMapping("/section-update/{id}")
+    @PutMapping("/section-update/{id}")
     public ResponseEntity<Section> updateSection(@PathVariable @NotNull String id, @RequestBody @Valid SectionDto sectionDto){
         return ResponseEntity.status(HttpStatus.OK).body(assessmentService.updateSection(id, sectionDto));
     }
 
-    @PatchMapping("/recommendation-update/{id}")
+    @PutMapping("/recommendation-update/{id}")
     public ResponseEntity<Recommendation> updateRecommendation(@PathVariable @NotNull String id, @RequestBody @Valid RecommendationDto recommendationDto){
         return ResponseEntity.status(HttpStatus.OK).body(assessmentService.editRecommendation(id, recommendationDto));
     }
