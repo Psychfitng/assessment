@@ -64,4 +64,6 @@ public interface AssessmentService {
     Section getSectionById(String id);
 
     void deleteRecommendations();
+
+    Option updateOption(String id, OptionDto optionDto);
 }

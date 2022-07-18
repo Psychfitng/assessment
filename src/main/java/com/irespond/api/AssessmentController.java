@@ -70,6 +70,10 @@ public class AssessmentController {
     public ResponseEntity<AssessmentQuestion> editQuestion(@PathVariable @NotBlank String id, @RequestBody @Valid QuestionDto questionDto){
         return ResponseEntity.status(HttpStatus.OK).body(assessmentService.editQuestion(id, questionDto));
     }
+    @PutMapping("/option-update/{id}")
+    public ResponseEntity<Option> updateRecommendation(@PathVariable @NotNull String id, @RequestBody @Valid OptionDto optionDto){
+        return ResponseEntity.status(HttpStatus.OK).body(assessmentService.updateOption(id, optionDto));
+    }
     @PutMapping("/result-update/{id}")
     public ResponseEntity<AssessmentResult> updateResult(@PathVariable @NotBlank String id, @RequestBody @Valid ResultDto resultDto){
         return ResponseEntity.status(HttpStatus.OK).body(assessmentService.updateResult(id, resultDto));

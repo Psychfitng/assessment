@@ -41,8 +41,6 @@ public class AssessmentServiceImpl implements AssessmentService{
 
     @Override
     public Assessment getAssessment(String id) {
-
-
         Assessment assessment = assessmentRepository.findById(id)
                 .orElseThrow(() -> new AssessmentException("This Assessment does not exist"));
 
@@ -125,7 +123,7 @@ public class AssessmentServiceImpl implements AssessmentService{
     public AssessmentQuestion editQuestion(String id, QuestionDto questionDto) {
         AssessmentQuestion question = questionRepo.findById(id)
                 .orElseThrow(() -> new AssessmentException("question does not exist"));
-        mapper.map(questionDto, question);
+        question.setQuestionText(questionDto.getQuestionText());
         return questionRepo.save(question);
     }
 
@@ -196,7 +194,11 @@ public class AssessmentServiceImpl implements AssessmentService{
         AssessmentResult result = resultRepository.findById(resultId)
                 .orElseThrow(() -> new AssessmentException("This result does not exist"));
 
-        mapper.map(resultDto, result);
+        result.setImageUrl(resultDto.getImageUrl());
+        result.setResultType(resultDto.getResultType());
+        result.setDescription(resultDto.getDescription());
+        result.setMaxRange(resultDto.getMaxRange());
+
         return resultRepository.save(result);
     }
 
@@ -266,5 +268,13 @@ public class AssessmentServiceImpl implements AssessmentService{
                 orElseThrow(() -> new AssessmentException("This section does not exist"));
         mapper.map(sectionDto, section);
         return subsectionRepo.save(section);
+    }
+    @Override
+    public Option updateOption(String id, OptionDto optionDto) {
+        Option option = optionRepository.findById(id)
+                .orElseThrow(() -> new AssessmentException("Option does not exist"));
+        option.setOptionType(optionDto.getOptionType());
+        option.setLabels(optionDto.getLabels());
+        return optionRepository.save(option);
     }
 }
