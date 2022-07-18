@@ -71,7 +71,7 @@ public class AssessmentController {
         return ResponseEntity.status(HttpStatus.OK).body(assessmentService.editQuestion(id, questionDto));
     }
     @PutMapping("/option-update/{id}")
-    public ResponseEntity<Option> updateRecommendation(@PathVariable @NotNull String id, @RequestBody @Valid OptionDto optionDto){
+    public ResponseEntity<Option> updateOption(@PathVariable @NotNull String id, @RequestBody @Valid OptionDto optionDto){
         return ResponseEntity.status(HttpStatus.OK).body(assessmentService.updateOption(id, optionDto));
     }
     @PutMapping("/result-update/{id}")
