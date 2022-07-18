@@ -45,8 +45,7 @@ public class AssessmentServiceImpl implements AssessmentService{
 
         Assessment assessment = assessmentRepository.findById(id)
                 .orElseThrow(() -> new AssessmentException("This Assessment does not exist"));
-        log.info("ASSESSMENT -> {}", assessment);
-        log.info("ASSESSMENT CHAIN -> {}", assessment.getSections().get(0).getQuestions());
+
         return assessment;
     }
 
