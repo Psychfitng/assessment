@@ -54,12 +54,15 @@ public class AssessmentServiceImpl implements AssessmentService{
     public List<Assessment> getAllAssessment() {
         return assessmentRepository.findAll();
     }
-
     @Override
     public Assessment updateAssessment(String id, AssessmentDto assessmentDto) {
         Assessment assessment = assessmentRepository.findById(id)
                 .orElseThrow(() -> new AssessmentException("This Assessment does not exist"));
-        mapper.map(assessmentDto, assessment);
+        assessment.setTitle(assessmentDto.getTitle());
+        assessment.setDescription(assessmentDto.getDescription());
+        assessment.setStandardName(assessmentDto.getStandardName());
+        assessment.setTitle(assessmentDto.getTitle());
+//        mapper.map(assessmentDto, assessment);
         return assessmentRepository.save(assessment);
     }
 
@@ -121,7 +124,8 @@ public class AssessmentServiceImpl implements AssessmentService{
 
     @Override
     public AssessmentQuestion editQuestion(String id, QuestionDto questionDto) {
-        AssessmentQuestion question = new AssessmentQuestion();
+        AssessmentQuestion question = questionRepo.findById(id)
+                .orElseThrow(() -> new AssessmentException("question does not exist"));
         mapper.map(questionDto, question);
         return questionRepo.save(question);
     }
@@ -215,18 +219,17 @@ public class AssessmentServiceImpl implements AssessmentService{
 
         return recommendation;
     }
-
     @Override
     public Recommendation editRecommendation(String recommendationId, RecommendationDto recommendationDto) {
 
         Recommendation recommendation = recommendationRepo.findById(recommendationId).
                 orElseThrow(() -> new AssessmentException("This recommendation does not exist"));
 
-        mapper.map(recommendationDto, recommendation);
+        recommendation.setMessage(recommendationDto.getMessage());
+        recommendation.setTitle(recommendationDto.getTitle());
+        recommendation.setImageLink(recommendationDto.getImageLink());
         return recommendationRepo.save(recommendation);
     }
-
-
     @Override
     public List<Recommendation> getAllRecommendation() {
         return recommendationRepo.findAll();

@@ -31,7 +31,7 @@ public class Assessment {
 
     private String category;
 
-    @Size(min = 20, max = 1200)
+    @Size(min = 2, max = 1200)
     private String description;
 
     @CreatedBy

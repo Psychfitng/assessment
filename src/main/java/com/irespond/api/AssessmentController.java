@@ -1,10 +1,12 @@
 package com.irespond.api;
 
 import com.irespond.dtos.*;
+import com.irespond.exceptions.AssessmentException;
 import com.irespond.models.*;
 import com.irespond.service.AssessmentServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +27,11 @@ public class AssessmentController {
     @PostMapping("/assessment")
     public ResponseEntity<?> createAssessment(@RequestBody @Valid AssessmentDto assessmentDto){
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(assessmentService.createAssessment(assessmentDto));
+        try{
+            return ResponseEntity.status(HttpStatus.CREATED).body(assessmentService.createAssessment(assessmentDto));
+        }catch (AssessmentException | DataIntegrityViolationException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/assessment/{id}")
