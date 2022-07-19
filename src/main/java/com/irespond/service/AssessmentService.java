@@ -66,4 +66,8 @@ public interface AssessmentService {
     void deleteRecommendations();
 
     Option updateOption(String id, OptionDto optionDto);
+
+    Feedback createFeedback(FeedbackDto feedbackDto);
+
+    List<Feedback> getFeedbacks();
 }

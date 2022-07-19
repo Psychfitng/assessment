@@ -23,6 +23,8 @@ public class AssessmentServiceImpl implements AssessmentService{
     private final ModelMapper mapper;
     private final OptionRepository optionRepository;
 
+    private final FeedbackRepository feedbackRepository;
+
     @Override
     public Assessment createAssessment(AssessmentDto assessmentDto) {
 
@@ -41,10 +43,9 @@ public class AssessmentServiceImpl implements AssessmentService{
 
     @Override
     public Assessment getAssessment(String id) {
-        Assessment assessment = assessmentRepository.findById(id)
-                .orElseThrow(() -> new AssessmentException("This Assessment does not exist"));
 
-        return assessment;
+        return assessmentRepository.findById(id)
+                .orElseThrow(() -> new AssessmentException("This Assessment does not exist"));
     }
 
     @Override
@@ -91,10 +92,9 @@ public class AssessmentServiceImpl implements AssessmentService{
 
         question.setQuestionText(questionDto.getQuestionText());
         Section section = subsectionRepo.findById(questionDto.getSectionId())
-                .orElseThrow(() -> new AssessmentException("Session not found"));
+                .orElseThrow(() -> new AssessmentException("Section not found"));
 
         questionRepo.insert(question);
-        log.info("SAVED QUESTION -> {}", question);
 
         section.getQuestions().add(question);
         subsectionRepo.save(section);
@@ -266,7 +266,7 @@ public class AssessmentServiceImpl implements AssessmentService{
     public Section updateSection(String id, SectionDto sectionDto) {
         Section section = subsectionRepo.findById(id).
                 orElseThrow(() -> new AssessmentException("This section does not exist"));
-        mapper.map(sectionDto, section);
+        section.setName(sectionDto.getName());
         return subsectionRepo.save(section);
     }
     @Override
@@ -277,4 +277,19 @@ public class AssessmentServiceImpl implements AssessmentService{
         option.setLabels(optionDto.getLabels());
         return optionRepository.save(option);
     }
+
+    @Override
+    public Feedback createFeedback(FeedbackDto feedbackDto) {
+        Feedback feedback = new Feedback();
+        feedback.setBody(feedbackDto.getBody());
+        feedback.setEmail(feedbackDto.getEmail());
+        feedback.setScale(feedbackDto.getScale());
+
+        return feedbackRepository.save(feedback);
+    }
+    @Override
+    public List<Feedback> getFeedbacks(){
+        return feedbackRepository.findAll();
+    }
+
 }

@@ -166,4 +166,13 @@ public class AssessmentController {
         assessmentService.deleteRecommendation(recommendationId);
         return ResponseEntity.noContent().build();
     }
+    @PostMapping("/feedback")
+    public ResponseEntity<Feedback> createFeedback(@RequestBody FeedbackDto feedbackDto){
+        return ResponseEntity.ok(assessmentService.createFeedback(feedbackDto));
+    }
+
+    @GetMapping("feedbacks")
+    public ResponseEntity<List<Feedback>> getFeedbacks(){
+        return ResponseEntity.ok(assessmentService.getFeedbacks());
+    }
 }
