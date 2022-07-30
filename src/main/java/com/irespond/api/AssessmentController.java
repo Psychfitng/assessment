@@ -175,4 +175,28 @@ public class AssessmentController {
     public ResponseEntity<List<Feedback>> getFeedbacks(){
         return ResponseEntity.ok(assessmentService.getFeedbacks());
     }
+
+    @PostMapping("/save-result")
+    public ResponseEntity<CompletedResult> createFeedback(@RequestBody CompletedResultDto completedResultDto){
+        return ResponseEntity.ok(assessmentService.saveCompletedResult(completedResultDto));
+    }
+
+    @GetMapping("saved-results")
+    public ResponseEntity<List<CompletedResult>> getSavedResults(){
+        return ResponseEntity.ok(assessmentService.resultsCompleted());
+    }
+
+    @DeleteMapping("/delete-results")
+    public ResponseEntity deleteAllSavedResult(){
+        assessmentService.deleteAllCompletedResult();
+        return ResponseEntity.ok("All completed results deleted successfully");
+    }
+
+    @DeleteMapping("delete-saved-result")
+    public ResponseEntity<?> getCompletedResultById(String id){
+        assessmentService.deleteCompletedResultById(id);
+        return ResponseEntity.ok("Successfully deleted");
+    }
+
+
 }
