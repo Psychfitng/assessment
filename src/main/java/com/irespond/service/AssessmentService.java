@@ -70,4 +70,14 @@ public interface AssessmentService {
     Feedback createFeedback(FeedbackDto feedbackDto);
 
     List<Feedback> getFeedbacks();
+
+    CompletedResult saveCompletedResult(CompletedResultDto completedResultDto);
+
+    List<CompletedResult> resultsCompleted();
+
+    CompletedResult getCompletedResultById(String id);
+
+    void deleteCompletedResultById(String id);
+
+    void deleteAllCompletedResult();
 }

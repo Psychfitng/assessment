@@ -23,6 +23,8 @@ public class AssessmentServiceImpl implements AssessmentService{
     private final ModelMapper mapper;
     private final OptionRepository optionRepository;
 
+    private final CompletedResultRepository completedResultRepository;
+
     private final FeedbackRepository feedbackRepository;
 
     @Override
@@ -290,6 +292,45 @@ public class AssessmentServiceImpl implements AssessmentService{
     @Override
     public List<Feedback> getFeedbacks(){
         return feedbackRepository.findAll();
+    }
+
+    @Override
+    public CompletedResult saveCompletedResult(CompletedResultDto completedResultDto) {
+        CompletedResult completedResult = CompletedResult.builder()
+                .age(completedResultDto.getAge())
+                .resultType(completedResultDto.getResultType())
+                .gender(completedResultDto.getGender())
+                .aggValue(completedResultDto.getAggValue())
+                .location(completedResultDto.getLocation())
+                .occupation(completedResultDto.getOccupation())
+                .percentValue(completedResultDto.getPercentValue())
+                .questionsWithValue(completedResultDto.getQuestionsWithValue())
+                .build();
+
+        return completedResultRepository.save(completedResult);
+    }
+
+    @Override
+    public List<CompletedResult> resultsCompleted() {
+        return completedResultRepository.findAll();
+    }
+
+    @Override
+    public CompletedResult getCompletedResultById(String id) {
+        return completedResultRepository.findById(id)
+                .orElseThrow(() -> new AssessmentException("This entity does not exist"));
+    }
+
+    @Override
+    public void deleteCompletedResultById(String id) {
+        if (completedResultRepository.existsById(id)){
+            completedResultRepository.deleteById(id);
+        }
+    }
+
+    @Override
+    public void deleteAllCompletedResult() {
+        completedResultRepository.deleteAll();;
     }
 
 }
