@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class CompletedResultDto {
 
-    private int age;
+    private String age;
 
     private String gender;
 
@@ -13,9 +13,9 @@ public class CompletedResultDto {
 
     private String occupation;
 
-    private int aggValue;
+    private String aggValue;
 
-    private int percentValue;
+    private String percentValue;
 
     private String resultType;
 

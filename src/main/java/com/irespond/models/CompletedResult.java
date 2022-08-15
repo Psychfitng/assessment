@@ -13,7 +13,7 @@ public class CompletedResult {
     @Id
     private String id;
 
-    private int age;
+    private String age;
 
     private String gender;
 
@@ -21,9 +21,9 @@ public class CompletedResult {
 
     private String occupation;
 
-    private int aggValue;
+    private String aggValue;
 
-    private int percentValue;
+    private String percentValue;
 
     private String resultType;
 
