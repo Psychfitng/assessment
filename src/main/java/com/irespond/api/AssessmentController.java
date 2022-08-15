@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 
-@RestController @Slf4j @AllArgsConstructor @CrossOrigin
+@RestController @Slf4j @AllArgsConstructor
 @RequestMapping("api")
 public class AssessmentController {
     private final AssessmentServiceImpl assessmentService;
@@ -176,9 +176,25 @@ public class AssessmentController {
         return ResponseEntity.ok(assessmentService.getFeedbacks());
     }
 
+    @DeleteMapping("/delete-feedback/{email}")
+    public ResponseEntity<?> deleteFeedbacksByEmail(@PathVariable String email){
+        assessmentService.deleteFeedbacksByEmail(email);
+        return ResponseEntity.ok("All feedbacks from the same email deleted successfully");
+    }
+
+    @GetMapping("/sameEmail-feedbacks/{email}")
+    public ResponseEntity<List<Feedback>> getAllFeedbacksFromSameEmail(@PathVariable String email){
+
+        return ResponseEntity.ok(assessmentService.getFeedbacksByEmail(email));
+    }
     @PostMapping("/save-result")
-    public ResponseEntity<CompletedResult> createFeedback(@RequestBody CompletedResultDto completedResultDto){
-        return ResponseEntity.ok(assessmentService.saveCompletedResult(completedResultDto));
+    public ResponseEntity<?> saveResult(@RequestBody CompletedResultDto completedResultDto) {
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED).body(assessmentService.saveCompletedResult(completedResultDto));
+
+        } catch (AssessmentException | DataIntegrityViolationException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("saved-results")
@@ -187,7 +203,7 @@ public class AssessmentController {
     }
 
     @DeleteMapping("/delete-results")
-    public ResponseEntity deleteAllSavedResult(){
+    public ResponseEntity<?> deleteAllSavedResult(){
         assessmentService.deleteAllCompletedResult();
         return ResponseEntity.ok("All completed results deleted successfully");
     }

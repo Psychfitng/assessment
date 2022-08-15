@@ -68,6 +68,7 @@ public class AssessmentServiceImpl implements AssessmentService{
 
     @Override
     public void deleteAssessment(String id) {
+
         assessmentRepository.deleteById(id);
     }
 
@@ -292,6 +293,14 @@ public class AssessmentServiceImpl implements AssessmentService{
     @Override
     public List<Feedback> getFeedbacks(){
         return feedbackRepository.findAll();
+    }
+
+    public List<Feedback> getFeedbacksByEmail(String email){
+        return feedbackRepository.findByEmailIgnoreCase(email);
+    }
+
+    public void deleteFeedbacksByEmail(String email){
+        feedbackRepository.deleteAllByEmailIgnoreCase(email);
     }
 
     @Override
