@@ -39,6 +39,7 @@ public class AssessmentServiceImpl implements AssessmentService{
         assessment.setCategory(assessmentDto.getCategory());
         assessment.setStandardName(assessmentDto.getStandardName());
         assessment.setDescription(assessmentDto.getDescription());
+        assessment.setImageUrl(assessmentDto.getImageUrl());
         assessment.setCreatedBy(LocalDateTime.now());
         return assessmentRepository.insert(assessment);
     }
@@ -62,6 +63,7 @@ public class AssessmentServiceImpl implements AssessmentService{
         assessment.setDescription(assessmentDto.getDescription());
         assessment.setStandardName(assessmentDto.getStandardName());
         assessment.setTitle(assessmentDto.getTitle());
+        assessment.setImageUrl(assessmentDto.getImageUrl());
 //        mapper.map(assessmentDto, assessment);
         return assessmentRepository.save(assessment);
     }

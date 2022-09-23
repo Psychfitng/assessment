@@ -29,6 +29,8 @@ public class Assessment {
     @Indexed(unique = true)
     private String standardName;
 
+    private String imageUrl;
+
     private String category;
 
     @Size(min = 2, max = 1200)

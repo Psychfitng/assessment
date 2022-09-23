@@ -25,4 +25,6 @@ public class AssessmentDto {
     @NotNull
     private String description;
 
+    private String imageUrl;
+
 }
