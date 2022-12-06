@@ -10,5 +10,5 @@ phases:
       - echo Build completed successfully...
 artifacts:
   files:
-    - web/target/irespondassessment.jar
+    - target/irespondassessment.jar
   discard-paths: yes
